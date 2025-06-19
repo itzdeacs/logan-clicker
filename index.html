@@ -78,10 +78,10 @@
   <div class="powerups">
     <button onclick="buyAutoClicker(1000)">Auto Clicker (1000 KG)</button>
     <h2>Power-Ups</h2>
-    <button onclick="buyPowerUp(40, '40 Nugget Meal')">40 Nugget Meal (+40 Power)</button>
-    <button onclick="buyPowerUp(10, 'Logan\'s Energy Drink')">Logan's Energy Drink (+10 Power)</button>
-    <button onclick="buyPowerUp(25, 'Gym Session')">Gym Session (+25 Power)</button>
-    <button onclick="buyPowerUp(50, 'Mega Combo Boost')">Mega Combo Boost (+50 Power)</button>
+    <button onclick="buyPowerUp(40, 100, '40 Nugget Meal')">40 Nugget Meal (+40 Power, 100 KG)</button>
+    <button onclick="buyPowerUp(10, 50, 'Logan\'s Energy Drink')">Logan's Energy Drink (+10 Power, 50 KG)</button>
+    <button onclick="buyPowerUp(25, 200, 'Gym Session')">Gym Session (+25 Power, 200 KG)</button>
+    <button onclick="buyPowerUp(50, 300, 'Mega Combo Boost')">Mega Combo Boost (+50 Power, 300 KG)</button>
   </div>
 
   <div id="notification" class="notification"></div>
@@ -100,9 +100,15 @@
       updateCounter();
     });
 
-    function buyPowerUp(powerIncrease, name) {
-      clickPower += powerIncrease;
-      showNotification(`${name} activated! Click Power is now ${clickPower}`);
+    function buyPowerUp(powerIncrease, cost, name) {
+      if (count >= cost) {
+        count -= cost;
+        clickPower += powerIncrease;
+        showNotification(`${name} activated! Click Power is now ${clickPower}`);
+        updateCounter();
+      } else {
+        showNotification(`Not enough KG for ${name}!`);
+      }
     }
 
     function buyAutoClicker(cost) {
@@ -133,6 +139,10 @@
         notification.classList.remove('show');
       }, 2000);
     }
+  </script>
+</body>
+</html>
+
   </script>
 </body>
 </html>
