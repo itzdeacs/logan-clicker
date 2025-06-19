@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Logan Clicker</title>
+  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/1046/1046784.png" />
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -34,9 +35,16 @@
     img:active {
       transform: scale(1.05);
     }
-    button {
+    .powerups {
+      margin-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .powerup-btn {
+      position: relative;
       font-size: 1.2rem;
-      padding: 0.8rem 1.5rem;
+      padding: 0.8rem 1.5rem 0.8rem 3rem;
       margin: 0.5rem;
       border: none;
       border-radius: 12px;
@@ -45,15 +53,35 @@
       cursor: pointer;
       transition: transform 0.1s, background-color 0.3s;
     }
-    button:hover {
+    .powerup-btn:hover {
       background-color: #ffa000;
     }
-    button:active {
+    .powerup-btn:active {
       transform: scale(0.98);
     }
-    .powerups {
-      margin-top: 2rem;
+    .powerup-btn:hover::after {
+      content: attr(data-power);
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 0.9rem;
     }
+    .powerup-btn::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      background-size: cover;
+    }
+    .powerup-btn[data-icon='🍔']::before { background-image: url('https://cdn-icons-png.flaticon.com/512/1046/1046784.png'); }
+    .powerup-btn[data-icon='🥤']::before { background-image: url('https://cdn-icons-png.flaticon.com/512/1046/1046789.png'); }
     .notification {
       position: fixed;
       top: 20px;
@@ -79,28 +107,27 @@
   <img id="clickImage" src="logan.jpg" alt="Click Logan">
 
   <div class="powerups">
-    <button onclick="buyAutoClicker(1000)">Auto Clicker (1000 KG)</button>
-    <h2>Power-Ups</h2>
-    <button onclick="buyPowerUp(10, 50, 'Logan\'s Energy Drink')">Logan's Energy Drink (+10 Power, 50 KG)</button>
-    <button onclick="buyPowerUp(20, 200, 'Large Chips')">Large Chips (+20 Power, 200 KG)</button>
-    <button onclick="buyPowerUp(40, 500, 'Deep Fried Donuts')">Deep Fried Donuts (+40 Power, 500 KG)</button>
-    <button onclick="buyPowerUp(60, 1500, 'Mega Soda')">Mega Soda (+60 Power, 1500 KG)</button>
-    <button onclick="buyPowerUp(100, 3000, '40 Nugget Meal')">40 Nugget Meal (+100 Power, 3000 KG)</button>
-    <button onclick="buyPowerUp(150, 5000, 'Triple Cheeseburger')">Triple Cheeseburger (+150 Power, 5000 KG)</button>
-    <button onclick="buyPowerUp(200, 7500, 'Kebab Mountain')">Kebab Mountain (+200 Power, 7500 KG)</button>
-    <button onclick="buyPowerUp(300, 12000, 'Pizza Tower')">Pizza Tower (+300 Power, 12000 KG)</button>
-    <button onclick="buyPowerUp(400, 18000, 'Fried Feast Deluxe')">Fried Feast Deluxe (+400 Power, 18000 KG)</button>
-    <button onclick="buyPowerUp(500, 25000, 'Grease Overload')">Grease Overload (+500 Power, 25000 KG)</button>
-    <button onclick="buyPowerUp(650, 35000, 'Snackpocalypse')">Snackpocalypse (+650 Power, 35000 KG)</button>
-    <button onclick="buyPowerUp(800, 50000, 'The Big Belly Deal')">The Big Belly Deal (+800 Power, 50000 KG)</button>
-    <button onclick="buyPowerUp(1000, 80000, 'FINAL BITE')">FINAL BITE (+1000 Power, 80000 KG)</button>
+    <button class="powerup-btn" data-icon="🍔" data-power="+10 Power" onclick="buyPowerUp(10, 50, 'Logan\'s Energy Drink')">Logan's Energy Drink</button>
+    <button class="powerup-btn" data-icon="🍔" data-power="+20 Power" onclick="buyPowerUp(20, 200, 'Large Chips')">Large Chips</button>
+    <button class="powerup-btn" data-icon="🍔" data-power="+40 Power" onclick="buyPowerUp(40, 500, 'Deep Fried Donuts')">Deep Fried Donuts</button>
+    <button class="powerup-btn" data-icon="🥤" data-power="+60 Power" onclick="buyPowerUp(60, 1500, 'Mega Soda')">Mega Soda</button>
+    <button class="powerup-btn" data-icon="🍔" data-power="+100 Power" onclick="buyPowerUp(100, 3000, '40 Nugget Meal')">40 Nugget Meal</button>
+    <button class="powerup-btn" data-icon="🍔" data-power="+150 Power" onclick="buyPowerUp(150, 5000, 'Triple Cheeseburger')">Triple Cheeseburger</button>
+    <button class="powerup-btn" data-icon="🍔" data-power="+200 Power" onclick="buyPowerUp(200, 7500, 'Kebab Mountain')">Kebab Mountain</button>
+    <button class="powerup-btn" data-icon="🍔" data-power="+300 Power" onclick="buyPowerUp(300, 12000, 'Pizza Tower')">Pizza Tower</button>
+    <button class="powerup-btn" data-icon="🍔" data-power="+400 Power" onclick="buyPowerUp(400, 18000, 'Fried Feast Deluxe')">Fried Feast Deluxe</button>
+    <button class="powerup-btn" data-icon="🍔" data-power="+500 Power" onclick="buyPowerUp(500, 25000, 'Grease Overload')">Grease Overload</button>
+    <button class="powerup-btn" data-icon="🍔" data-power="+650 Power" onclick="buyPowerUp(650, 35000, 'Snackpocalypse')">Snackpocalypse</button>
+    <button class="powerup-btn" data-icon="🍔" data-power="+800 Power" onclick="buyPowerUp(800, 50000, 'The Big Belly Deal')">The Big Belly Deal</button>
+    <button class="powerup-btn" data-icon="🍔" data-power="+1000 Power" onclick="buyPowerUp(1000, 80000, 'FINAL BITE')">FINAL BITE</button>
   </div>
 
   <div id="notification" class="notification"></div>
   <audio id="clickSound" src="https://actions.google.com/sounds/v1/cartoon/pop.ogg"></audio>
+  <audio id="bgMusic" src="https://cdn.pixabay.com/download/audio/2022/10/16/audio_c2eabbb89c.mp3?filename=8bit-march-145197.mp3" loop autoplay></audio>
   <script>
-    let count = 0;
-    let clickPower = 1;
+    let count = localStorage.getItem('kg') ? parseInt(localStorage.getItem('kg')) : 0;
+    let clickPower = localStorage.getItem('power') ? parseInt(localStorage.getItem('power')) : 1;
     let autoClickerEnabled = false;
 
     const counterEl = document.getElementById('counter');
@@ -113,6 +140,7 @@
       clickSound.currentTime = 0;
       clickSound.play();
       updateCounter();
+      saveProgress();
     });
 
     function buyPowerUp(powerIncrease, cost, name) {
@@ -121,25 +149,9 @@
         clickPower += powerIncrease;
         showNotification(`${name} activated! Click Power is now ${clickPower}`);
         updateCounter();
+        saveProgress();
       } else {
         showNotification(`Not enough KG for ${name}!`);
-      }
-    }
-
-    function buyAutoClicker(cost) {
-      if (count >= cost && !autoClickerEnabled) {
-        count -= cost;
-        autoClickerEnabled = true;
-        showNotification("Auto Clicker Activated!");
-        setInterval(() => {
-          count += clickPower;
-          updateCounter();
-        }, 1000);
-        updateCounter();
-      } else if (autoClickerEnabled) {
-        showNotification("Auto Clicker already active!");
-      } else {
-        showNotification("Not enough KG for Auto Clicker!");
       }
     }
 
@@ -154,6 +166,13 @@
         notification.classList.remove('show');
       }, 2000);
     }
+
+    function saveProgress() {
+      localStorage.setItem('kg', count);
+      localStorage.setItem('power', clickPower);
+    }
+
+    updateCounter();
   </script>
 </body>
 </html>
