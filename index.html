@@ -24,6 +24,16 @@
       font-size: 2rem;
       margin: 1rem 0;
     }
+    img {
+      width: 200px;
+      cursor: pointer;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(255,255,255,0.2);
+      transition: transform 0.1s;
+    }
+    img:active {
+      transform: scale(0.97);
+    }
     button {
       font-size: 1.2rem;
       padding: 0.8rem 1.5rem;
@@ -62,10 +72,11 @@
 </head>
 <body>
   <h1>Logan Clicker</h1>
-  <div id="counter">Clicks: 0</div>
-  <button id="clickButton">Click Logan!</button>
+  <div id="counter">KG: 0</div>
+  <img id="clickImage" src="logan.jpg" alt="Click Logan">
 
   <div class="powerups">
+    <button onclick="buyAutoClicker(1000)">Auto Clicker (1000 KG)</button>
     <h2>Power-Ups</h2>
     <button onclick="buyPowerUp(40, '40 Nugget Meal')">40 Nugget Meal (+40 Power)</button>
     <button onclick="buyPowerUp(10, 'Logan\'s Energy Drink')">Logan's Energy Drink (+10 Power)</button>
@@ -78,9 +89,10 @@
   <script>
     let count = 0;
     let clickPower = 1;
+    let autoClickerEnabled = false;
 
     const counterEl = document.getElementById('counter');
-    const button = document.getElementById('clickButton');
+    const button = document.getElementById('clickImage');
     const notification = document.getElementById('notification');
 
     button.addEventListener('click', () => {
@@ -93,8 +105,25 @@
       showNotification(`${name} activated! Click Power is now ${clickPower}`);
     }
 
+    function buyAutoClicker(cost) {
+      if (count >= cost && !autoClickerEnabled) {
+        count -= cost;
+        autoClickerEnabled = true;
+        showNotification("Auto Clicker Activated!");
+        setInterval(() => {
+          count += clickPower;
+          updateCounter();
+        }, 1000);
+        updateCounter();
+      } else if (autoClickerEnabled) {
+        showNotification("Auto Clicker already active!");
+      } else {
+        showNotification("Not enough KG for Auto Clicker!");
+      }
+    }
+
     function updateCounter() {
-      counterEl.textContent = `Clicks: ${count}`;
+      counterEl.textContent = `KG: ${count}`;
     }
 
     function showNotification(message) {
